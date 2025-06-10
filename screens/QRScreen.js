@@ -28,3 +28,4 @@ const styles = StyleSheet.create({
   qrContainer: { backgroundColor: 'white', padding: 10, borderRadius: 10, marginBottom: 20 },
   qrText: { fontSize: 12, color: 'gray', marginBottom: 20 },
 });
+0
