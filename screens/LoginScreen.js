@@ -8,7 +8,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.8.39:5000/api/login', {
+      const response = await fetch('http://192.168.8.36:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -18,10 +18,9 @@ const LoginScreen = ({ navigation }) => {
 
       if (response.ok) {
         await AsyncStorage.setItem('token', data.token);
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'NewScreen', params: { user: data.user } }],
-        });
+
+        // ✅ Navigate to AppNavigator with user data
+        navigation.navigate('AppNavigator', { user: data.user });
       } else {
         Alert.alert('Login failed', data.message || 'Invalid credentials');
       }

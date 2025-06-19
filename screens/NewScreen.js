@@ -1,48 +1,19 @@
-// screens/NewScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { View, Text, StyleSheet } from 'react-native';
 
-const NewScreen = ({ navigation, route }) => {
+const NewScreen = ({ route }) => {
   const { user } = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.pointsText}>Points: {user.points ?? 0}</Text>
+      <Text style={styles.welcomeText}>Welcome, {user.username || 'User'}!</Text>
 
-      <TouchableOpacity
-        style={styles.qrButton}
-        onPress={() => navigation.navigate('QR', { user })}
-      >
-        <MaterialCommunityIcons name="qrcode" size={40} color="#000" />
-      </TouchableOpacity>
-
-      {/* Bottom Menu Icons */}
-      <View style={styles.bottomMenu}>
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Profile', { user })}
-        >
-          <MaterialCommunityIcons name="account-circle" size={28} color="#007aff" />
-          <Text style={styles.menuText}>Profile</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Reward', { user })}
-        >
-          <FontAwesome5 name="gift" size={24} color="#28a745" />
-          <Text style={styles.menuText}>Rewards</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.menuItem}
-          onPress={() => navigation.navigate('Transaction', { user })}
-        >
-          <MaterialCommunityIcons name="history" size={28} color="#6c757d" />
-          <Text style={styles.menuText}>Transactions</Text>
-        </TouchableOpacity>
+      <View style={styles.card}>
+        <Text style={styles.pointsLabel}>Your Points</Text>
+        <Text style={styles.pointsValue}>{user.points ?? 0}</Text>
       </View>
+
+      {/* Add more sections below like recent activity, announcements, etc. */}
     </View>
   );
 };
@@ -52,45 +23,36 @@ export default NewScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 30,
+    backgroundColor: '#f8f4ff',
+    padding: 20,
+    justifyContent: 'flex-start',
   },
-  pointsText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  welcomeText: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#333',
     textAlign: 'center',
+    marginVertical: 20,
   },
-  qrButton: {
-    position: 'absolute',
-    bottom: 90,
-    alignSelf: 'center',
-    backgroundColor: '#e0e0e0',
-    padding: 16,
-    borderRadius: 50,
-    elevation: 5,
+  card: {
+    backgroundColor: '#fff',
+    padding: 30,
+    borderRadius: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-  },
-  bottomMenu: {
-    position: 'absolute',
-    bottom: 20,
-    left: 0,
-    right: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#f9f9f9',
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderColor: '#ccc',
-  },
-  menuItem: {
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 4,
     alignItems: 'center',
   },
-  menuText: {
-    fontSize: 12,
-    marginTop: 4,
+  pointsLabel: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 10,
+  },
+  pointsValue: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#6200ee',
   },
 });

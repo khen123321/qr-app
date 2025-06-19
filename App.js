@@ -1,10 +1,9 @@
-// App.js
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { AuthProvider } from './AuthContext';
 
+import IntroScreen from './screens/IntroScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import NewScreen from './screens/NewScreen';
@@ -12,21 +11,28 @@ import QRScreen from './screens/QRScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import RewardScreen from './screens/RewardScreen';
 import TransactionScreen from './screens/TransactionScreen';
+import AppNavigator from './navigation/AppNavigator';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [isFirstLaunch, setIsFirstLaunch] = useState(true); // Always show Intro temporarily
+
   return (
     <AuthProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login' }} />
-          <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Sign Up' }} />
-          <Stack.Screen name="NewScreen" component={NewScreen} options={{ title: 'Dashboard' }} />
-          <Stack.Screen name="QR" component={QRScreen} options={{ title: 'Scan QR Code' }} />
-          <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'Profile' }} />
-          <Stack.Screen name="Reward" component={RewardScreen} options={{ title: 'Rewards' }} />
-          <Stack.Screen name="Transaction" component={TransactionScreen} options={{ title: 'Transaction History' }} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {isFirstLaunch && (
+            <Stack.Screen name="Intro" component={IntroScreen} />
+          )}
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="NewScreen" component={NewScreen} />
+          <Stack.Screen name="QR" component={QRScreen} />
+          <Stack.Screen name="Profile" component={ProfileScreen} />
+          <Stack.Screen name="Reward" component={RewardScreen} />
+          <Stack.Screen name="Transaction" component={TransactionScreen} />
+          <Stack.Screen name="AppNavigator" component={AppNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
